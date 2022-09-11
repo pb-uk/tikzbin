@@ -1,26 +1,65 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TikZ Editor</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
-    <script src="https://tikzjax.com/v1/tikzjax.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TikZ pastebin</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://tikzjax.com/v1/fonts.css"
+    />
+    <script async src="https://tikzjax.com/v1/tikzjax.js"></script>
+    <script defer src="./index.min.js"></script>
   </head>
   <body>
-  <section class="section">
+    <div class="container content">
+      <h1 class="title is-1">Tikz editor</h1>
+      <p>
+        This is a proof of concept for a pastebin for creating TikZ drawings.
+      </p>
+      <p>It creates a file OK but PF won't upload SVG files.</p>
+    </div>
+
     <div class="container">
-      <h1 class="title">Tikz editor</h1>
+
       <h2 class="title is-2">Source</h2>
-      <textarea id="input" onchange="sourceChanged()" class="textarea"></textarea>
-      <button class="button" onclick="sourceChanged()">Draw</button>
+      <textarea id="input" class="textarea block"></textarea>
+      <div class="block">
+        <button class="button" onclick="sourceChanged()">Draw</button>
+        <button class="button" onclick="captureSvg()">Download</button>
+      </div>
+
       <h2 class="title is-2">Rendered</h2>
       <div id="rendered"></div>
-      <h2 class="title is-2">SVG</h2>
       <div id="svg"></div>
+
+      <h2 class="title is-2">TODO</h2>
+      <div class="content">
+        <ul>
+          <li>Use CodeMirror as source editor</li>
+          <li>Smarten styling</li>
+        </ul>
+      </div>
+      <footer class="content">
+        <small>
+          Copyright &copy; 2022
+          <a
+            href="https://github.com/pb-uk"
+            target="_blank"
+            >pbuk</a
+          > |
+          <a
+            href="https://spdx.org/licenses/AGPL-3.0-or-later.html"
+            target="_blank"
+            >AGPL-3.0-or-later</a
+          >
+        </small>
+      </footer>
     </div>
-  </section>
-  <script src="./index.min.js"></script>
-</body>
+  </body>
 </html>
