@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TikZ Editor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+    <script src="https://tikzjax.com/v1/tikzjax.js"></script>
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Tikz editor</h1>
+      <h2 class="title is-2">Source</h2>
+      <textarea id="input" onchange="sourceChanged()" class="textarea"></textarea>
+      <button class="button" onclick="sourceChanged()">Draw</button>
+      <h2 class="title is-2">Rendered</h2>
+      <div id="rendered"></div>
+      <h2 class="title is-2">SVG</h2>
+      <div id="svg"></div>
+    </div>
+  </section>
+  <script src="./index.min.js"></script>
+</body>
+</html>
