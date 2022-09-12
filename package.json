@@ -1,0 +1,24 @@
+{
+  "name": "tikzbin",
+  "private": true,
+  "version": "0.0.0-dev",
+  "description": "Pastebin for TikZ markup",
+  "scripts": {
+    "lint": "eslint . & prettier . --check",
+    "lint:fix": "eslint . --fix && prettier . --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pb-uk/tikzbin.git"
+  },
+  "author": "https://github.com/pb-uk/",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/pb-uk/tikzbin/issues"
+  },
+  "homepage": "https://github.com/pb-uk/tikzbin#readme",
+  "devDependencies": {
+    "eslint": "^8.23.1",
+    "prettier": "^2.7.1"
+  }
+}
