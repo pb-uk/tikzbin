@@ -8,12 +8,30 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     />
+
     <link
       rel="stylesheet"
       type="text/css"
       href="https://tikzjax.com/v1/fonts.css"
     />
     <script async src="https://tikzjax.com/v1/tikzjax.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/base16-light.min.css"
+    />
+    <script>CodeMirror = {}</script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/stex/stex.js"
+    ></script>
+
     <script defer src="./index.min.js"></script>
   </head>
   <body>
@@ -26,9 +44,8 @@
     </div>
 
     <div class="container">
-
       <h2 class="title is-2">Source</h2>
-      <textarea id="input" class="textarea block"></textarea>
+      <div id="editor" class="block"></div>
       <div class="block">
         <button class="button" onclick="sourceChanged()">Draw</button>
         <button class="button" onclick="captureSvg()">Download</button>
@@ -48,11 +65,7 @@
       <footer class="content">
         <small>
           Copyright &copy; 2022
-          <a
-            href="https://github.com/pb-uk"
-            target="_blank"
-            >pbuk</a
-          > |
+          <a href="https://github.com/pb-uk" target="_blank">pbuk</a> |
           <a
             href="https://spdx.org/licenses/AGPL-3.0-or-later.html"
             target="_blank"
