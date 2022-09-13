@@ -33,31 +33,43 @@
       <p>
         This is a proof of concept for a pastebin for creating TikZ drawings.
       </p>
-      <p>It creates a file OK but PF won't upload SVG files.</p>
     </div>
 
     <div class="container">
       <h2 class="title is-2">Source</h2>
       <div id="editor" class="block"></div>
-      <div class="block">
-        <button class="button" onclick="sourceChanged()">Draw</button>
-        <button class="button" onclick="captureSvg()">Download</button>
+      <div class="field">
+        <label class="label">Filename</label>
+        <div class="control">
+          <input id="input-filename" class="input" value="tikz-image" />
+        </div>
+        <p class="help">Without extension</p>
+      </div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button" onclick="sourceChanged()">Draw</button>
+        </div>
+        <div class="control">
+          <button id="btn-svg" disabled class="button" onclick="captureSvg()">
+            Download SVG
+          </button>
+        </div>
+        <div class="control">
+          <button id="btn-png" disabled class="button" onclick="capturePng()">
+            Download PNG
+          </button>
+        </div>
       </div>
 
       <h2 class="title is-2">Rendered</h2>
       <div id="rendered"></div>
       <div id="svg"></div>
 
-      <h2 class="title is-2">TODO</h2>
-      <div class="content">
-        <ul>
-          <li>Use CodeMirror as source editor</li>
-          <li>Smarten styling</li>
-        </ul>
-      </div>
       <footer class="content">
         <small>
-          Copyright &copy; 2022
+          <a href="https://github.com/pb-uk/tikzbin" target="_blank">Tikzbin</a>
+          | Copyright &copy; 2022
           <a href="https://github.com/pb-uk" target="_blank">pbuk</a> |
           <a
             href="https://spdx.org/licenses/AGPL-3.0-or-later.html"
