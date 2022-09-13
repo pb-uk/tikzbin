@@ -4,8 +4,9 @@
   "version": "0.0.0-dev",
   "description": "Pastebin for TikZ markup",
   "scripts": {
-    "lint": "eslint . & prettier . --check",
-    "lint:fix": "eslint . --fix && prettier . --write"
+    "build": "rollup -c",
+    "lint": "prettier . --check & eslint .",
+    "lint:fix": " prettier . --write && eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,20 @@
   },
   "homepage": "https://github.com/pb-uk/tikzbin#readme",
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^14.1.0",
+    "@rollup/plugin-typescript": "^8.5.0",
+    "@typescript-eslint/eslint-plugin": "^5.37.0",
+    "@typescript-eslint/parser": "^5.37.0",
     "eslint": "^8.23.1",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "rollup": "^2.79.0",
+    "tslib": "^2.4.0",
+    "typescript": "^4.8.3"
+  },
+  "dependencies": {
+    "@codemirror/commands": "^6.1.0",
+    "@codemirror/legacy-modes": "^6.1.0",
+    "@codemirror/view": "^6.2.3",
+    "codemirror": "^6.0.1"
   }
 }
