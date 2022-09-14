@@ -46,14 +46,11 @@ window.sourceChanged = () => {
 const editor = new CodeEditor({
   doc: '\\begin{tikzpicture}\n  \\draw (0,0) circle (4cm);\n\\end{tikzpicture}',
   parentId: 'editor',
+  // eslint-disable-next-line
+  // @ts-ignore
+}).on('change', (ev) => {
+  console.log('Updated', ev.value);
 });
-
-/*
-editor.addEventListener('change', (ev) => {
-  console.log('Update', (<CustomEvent>ev).detail.value);
-});
-*/
-
 /*
 function debounce(func, timeout = 300) {
   let timer;

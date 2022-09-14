@@ -5,29 +5,40 @@ import { StreamLanguage } from '@codemirror/language';
 import { indentWithTab } from '@codemirror/commands';
 import { stex } from '@codemirror/legacy-modes/mode/stex';
 
+import Emittery from 'emittery';
+
 export interface CodeEditorOptions {
   doc?: string;
   parent?: HTMLElement;
   parentId?: string;
+  onChange?: CodeEditorEventHandler;
 }
 
 const onEditorUpdate = (editor: CodeEditor, update: ViewUpdate) => {
   if (!update.docChanged) return;
   const value = update.state.doc.toString();
-  editor.dispatchEvent(
-    new CustomEvent('change', { detail: { editor, value } })
-  );
+  // eslint-disable-next-line
+  // @ts-ignore
+  editor.emit('change', { value });
 };
 
-export class CodeEditor extends EventTarget {
+interface CodeEditorEvent {
+  value: string;
+}
+
+type CodeEditorEventHandler = (ev: CodeEditorEvent) => void;
+
+@Emittery.mixin('emittery')
+export class CodeEditor {
   editor: EditorView;
 
   constructor(options: CodeEditorOptions) {
-    super();
+    // The parent DOM element.
     const parent =
       (options.parentId && document.getElementById(options.parentId)) ||
       options.parent ||
       document.body;
+
     this.editor = new EditorView({
       extensions: [
         basicSetup,
@@ -38,5 +49,9 @@ export class CodeEditor extends EventTarget {
       doc: options.doc ?? '',
       parent,
     });
+
+    // eslint-disable-next-line
+    // @ts-ignore
+    if (options.onChange) this.on('change', options.onChange);
   }
 }
