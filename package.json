@@ -1,7 +1,7 @@
 {
   "name": "tikzbin",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Pastebin for TikZ markup",
   "scripts": {
     "build": "rollup -c",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/pb-uk/tikzbin#readme",
   "devDependencies": {
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^14.1.0",
     "@rollup/plugin-typescript": "^8.5.0",
     "@typescript-eslint/eslint-plugin": "^5.37.0",

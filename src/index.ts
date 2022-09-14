@@ -1,17 +1,16 @@
-import { basicSetup } from 'codemirror';
-import { EditorView, keymap } from '@codemirror/view';
-import { StreamLanguage } from '@codemirror/language';
-import { indentWithTab } from '@codemirror/commands';
-import { stex } from '@codemirror/legacy-modes/mode/stex';
+import { CodeEditor } from './editor.js';
+import { captureSvg, capturePng } from './image-conversion.js';
+import { version } from '../package.json';
+
+const setInnerHtml = (id: string, html: string) => {
+  const el = document.getElementById(id);
+  if (el == null) return;
+  el.innerHTML = html;
+};
+
+setInnerHtml('version', version);
 
 let lastSource: string;
-
-const getDownloadFileName = (ext: string): string => {
-  return (
-    (<HTMLInputElement>document.getElementById('input-filename')).value +
-    `.${ext}`
-  );
-};
 
 const enableDownloadButtons = (enable = true) => {
   if (enable) {
@@ -32,7 +31,7 @@ const enableDownloadButtons = (enable = true) => {
 // @ts-ignore
 window.sourceChanged = () => {
   // Check the source has actually changed.
-  const newSource = editor.state.doc.toString();
+  const newSource = editor.editor.state.doc.toString();
   if (lastSource === newSource) return;
   enableDownloadButtons(false);
   lastSource = newSource;
@@ -44,17 +43,16 @@ window.sourceChanged = () => {
   enableDownloadButtons();
 };
 
-const editor = new EditorView({
-  extensions: [
-    basicSetup,
-    StreamLanguage.define(stex),
-    // Auto-update is disabled to prevent spamming the tikzjax server.
-    // EditorView.updateListener.of(debounce(sourceChanged)),
-    keymap.of([indentWithTab]),
-  ],
+const editor = new CodeEditor({
   doc: '\\begin{tikzpicture}\n  \\draw (0,0) circle (4cm);\n\\end{tikzpicture}',
-  parent: document.getElementById('editor') ?? document.body,
+  parentId: 'editor',
 });
+
+/*
+editor.addEventListener('change', (ev) => {
+  console.log('Update', (<CustomEvent>ev).detail.value);
+});
+*/
 
 /*
 function debounce(func, timeout = 300) {
@@ -68,72 +66,12 @@ function debounce(func, timeout = 300) {
 }
 */
 
-const captureSvgAsDataUri = (): string => {
-  const renderedEl = document.getElementById('rendered');
-  if (renderedEl == null || renderedEl.firstChild == null) return '';
-  const svg = (<HTMLElement>renderedEl.firstChild).innerHTML;
-  return (
-    'data:image/svg+xml;base64,' +
-    window.btoa(
-      svg.replace(
-        '<svg',
-        '<?xml version="1.0"?>\n<svg xmlns="http://www.w3.org/2000/svg"'
-      )
-    )
-  );
-};
+// eslint-disable-next-line
+// @ts-ignore
+window.captureSvg = captureSvg;
 
 // eslint-disable-next-line
 // @ts-ignore
-window.captureSvg = () => {
-  const dataUri = captureSvgAsDataUri();
-  const downloadLink = document.createElement('a');
-  downloadLink.href = dataUri;
-  downloadLink.download = getDownloadFileName('svg');
-  downloadLink.click();
-};
-
-// eslint-disable-next-line
-// @ts-ignore
-window.capturePng = async () => {
-  const image = document.createElement('img');
-  image.src = captureSvgAsDataUri();
-  image.onload = () => {
-    const canvas = document.createElement('canvas');
-    canvas.width = image.width;
-    canvas.height = image.height;
-    const context = canvas.getContext('2d');
-    if (context === null) return;
-    context.drawImage(image, 0, 0);
-
-    const downloadLink = document.createElement('a');
-    downloadLink.href = canvas.toDataURL('image/png');
-    downloadLink.download = getDownloadFileName('png');
-    downloadLink.click();
-  };
-};
-
-/* Jpeg suffers from a black background.
-// eslint-disable-next-line
-// @ts-ignore
-window.captureJpeg = async () => {
-  const image = document.createElement('img');
-  image.src = captureSvgAsDataUri();
-  image.style.backgroundColor = "#ffffff";
-  image.onload = () => {
-    const canvas = document.createElement('canvas');
-    canvas.width = image.width;
-    canvas.height = image.height;
-    const context = canvas.getContext('2d');
-    if (context === null) return;
-    context.drawImage(image, 0, 0);
-
-    const downloadLink = document.createElement('a');
-    downloadLink.href = canvas.toDataURL('image/jpeg');
-    downloadLink.download = getDownloadFileName('jpg');
-    downloadLink.click();
-  };
-};
-*/
+window.capturePng = capturePng;
 
 enableDownloadButtons(false);
