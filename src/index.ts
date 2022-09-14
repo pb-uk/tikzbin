@@ -1,4 +1,4 @@
-import { CodeEditor } from './editor.js';
+import { createCodeEditor } from './editor.js';
 import { captureSvg, capturePng } from './image-conversion.js';
 import { version } from '../package.json';
 
@@ -24,8 +24,6 @@ const enableDownloadButtons = (enable = true) => {
   // document.getElementById('btn-jpg')?.setAttribute('disabled', 'disabled');
 };
 
-// https://spin.atomicobject.com/2014/01/21/convert-svg-to-png/
-
 // const sourceChanged = window.sourceChanged = async () => {
 // eslint-disable-next-line
 // @ts-ignore
@@ -43,14 +41,14 @@ window.sourceChanged = () => {
   enableDownloadButtons();
 };
 
-const editor = new CodeEditor({
-  doc: '\\begin{tikzpicture}\n  \\draw (0,0) circle (4cm);\n\\end{tikzpicture}',
-  parentId: 'editor',
-  // eslint-disable-next-line
-  // @ts-ignore
-}).on('change', (ev) => {
-  console.log('Updated', ev.value);
+const editor = createCodeEditor({
+  value:
+    '\\begin{tikzpicture}\n  \\draw (0,0) circle (4cm);\n\\end{tikzpicture}',
+  el: '#editor',
+  language: 'stex',
 });
+
+// editor.on('change', (ev) => console.log('Updated', ev.value));
 /*
 function debounce(func, timeout = 300) {
   let timer;
